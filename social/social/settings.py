@@ -25,7 +25,12 @@ SECRET_KEY = 'pwj^b5quyv4^7#y5fkb-yf3&(^0id$nsx(6w+rdv_raldi4&cy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "[::1]",
+    "testserver",
+]
 
 
 # Application definition
@@ -41,7 +46,12 @@ INSTALLED_APPS = [
 
     'posts.apps.PostsConfig',
 
+    'django.contrib.sites',
+    'django.contrib.flatpages',
 ]
+
+# Идентификатор текущего сайта
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
