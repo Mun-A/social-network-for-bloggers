@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Добавление нового поста{% endblock %}
-{% block header %}{% endblock %}
+{% block title %}{% if edit %}Обновить пост{% else %}Добавить пост{% endif %}{% endblock %}
 
 {% block content %}
 {% load user_filters %}
@@ -8,10 +7,10 @@
 <div class="row justify-content-center">
     <div class="col-md-8 p-5">
         <div class="card">
-            <div class="card-header">Добавить пост</div>
+            <div class="card-header">{% if edit %}Обновить пост{% else %}Добавить пост{% endif %}</div>
             <div class="card-body">
 
-                <form action="{% url 'new_post' %}" method="post">
+                <form action="{% if edit %}{% url 'post_edit' post.author post.id %}{% else %}{% url 'new_post' %}{% endif %}" method="post">
                     {% csrf_token %}
 
                     {% for field in form %}
@@ -24,9 +23,9 @@
                     {% endfor %}
 
                     <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                Добавить пост
-                            </button>
+                        <button type="submit" class="btn btn-primary w-100">
+                            {% if edit %}Сохранить{% else %}Добавить{% endif %}
+                        </button>
                     </div>
                 </form>
 

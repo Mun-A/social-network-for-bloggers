@@ -3,9 +3,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.flatpages import views
+from django.conf.urls import handler404, handler500
 
+import posts.views
+
+handler404 = "posts.views.page_not_found"  # noqa
+handler500 = "posts.views.server_error"  # noqa
 
 urlpatterns = [
+    path("admin/", admin.site.urls),
     path("", include("posts.urls")),
 
     # flatpages
@@ -16,8 +22,6 @@ urlpatterns = [
     #  если нужного шаблона для /auth не нашлось в файле users.urls —
     #  ищем совпадения в файле django.contrib.auth.urls
     path("auth/", include("django.contrib.auth.urls")),
-
-    path("admin/", admin.site.urls),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
