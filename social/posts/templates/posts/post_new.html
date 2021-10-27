@@ -10,7 +10,7 @@
             <div class="card-header">{% if edit %}Обновить пост{% else %}Добавить пост{% endif %}</div>
             <div class="card-body">
 
-                <form action="{% if edit %}{% url 'post_edit' post.author post.id %}{% else %}{% url 'new_post' %}{% endif %}" method="post">
+                <form action="{% if edit %}{% url 'post_edit' post.author post.id %}{% else %}{% url 'new_post' %}{% endif %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
                     {% for field in form %}

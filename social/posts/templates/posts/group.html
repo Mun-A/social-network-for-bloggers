@@ -1,24 +1,20 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block title %} Записи сообщества {{ group.title }} {% endblock %}
 
-{% block header %} {{ group.title }} {% endblock %}
-
-
 {% block content %}
+    <div class="container">
+        <h1>Последние записи сообщества {{ group.title }}</h1>
+        <!-- Вывод ленты записей -->
+        {% for post in page %}
+        {% include 'posts/post_item.html' with post=post %}
+        {% endfor %}
+    </div>
 
-    <p>{{ group.description }}</p>
-
-    {% for post in page %}
-    <h3>
-        Автор: {{ post.author.get_full_name }}, Дата публикации: {{ post.pub_date|date:"d M Y" }}
-    </h3>
-    <p>{{ post.text|linebreaksbr }}</p>
-    {% if not forloop.last %}<hr>{% endif %}
-    {% endfor %}
-
+    <!-- Вывод паджинатора -->
     {% if page.has_other_pages %}
-        {% include "paginator.html" with items=page paginator=paginator %}
+    {% include "paginator.html" with items=page paginator=paginator%}
     {% endif %}
 
 {% endblock %}
