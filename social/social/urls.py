@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.flatpages.views import flatpage
 from django.conf.urls import handler404, handler500
-from rest_framework.authtoken import views
+
 
 import posts.views
 
@@ -24,8 +24,8 @@ urlpatterns = [
     #  ищем совпадения в файле django.contrib.auth.urls
     path("auth/", include("django.contrib.auth.urls")),
 
-    path('api-auth/', include('rest_framework.urls')),
-    path('api-token-auth/', views.obtain_auth_token),
+    path("api/v1/", include("api.urls")),
+    path("api-auth/", include("rest_framework.urls")),
 ]
 
 urlpatterns += [
